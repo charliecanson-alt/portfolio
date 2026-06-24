@@ -1,0 +1,8 @@
+# Onboard — Phases 1–4 (deterministic; no AI dependencies yet).
+PyYAML>=6.0
+click>=8.1
+Markdown>=3.5
+# WeasyPrint renders the branded PDF. On Windows it needs the GTK/Pango native
+# libraries; if it can't load, `onboard build` still emits the .md and tells you
+# why the PDF was skipped. See README "PDF rendering on Windows".
+weasyprint>=61.0

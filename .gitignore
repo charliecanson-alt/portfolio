@@ -1,0 +1,28 @@
+# --- Node / Vite site ---
+node_modules/
+dist/
+*.tsbuildinfo
+
+# --- Secrets / env ---
+.env
+.env.*
+!.env.example
+
+# --- Python (tools/onboard) ---
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# --- Onboard generated output ---
+tools/onboard/output/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Claude Code local settings (personal, not shared) ---
+.claude/settings.local.json

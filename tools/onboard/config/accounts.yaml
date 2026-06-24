@@ -1,0 +1,13 @@
+# Account definitions. `label` is injected as {{account}} and shown in the
+# interactive account menu. `manager` (if present) takes precedence over the
+# role's default_manager. `buddy` is optional; if a module references {{buddy}}
+# and none is set, the gap checker records a missing-variable error.
+accounts:
+  acme-retail:
+    label: "Acme Retail"
+    manager: "Jordan Lee"
+    buddy: "Sam Cruz"
+  globex-foods:
+    label: "Globex Foods"
+    manager: "Robin Patel"
+    buddy: "Alex Kim"

@@ -1,0 +1,13 @@
+# Role definitions. `label` is the human name injected as {{role}} and shown
+# in the interactive role menu; `default_manager` is the fallback for
+# {{manager}} when the account does not specify one.
+roles:
+  ads-specialist:
+    label: "Ads Specialist"
+    default_manager: "Jordan Lee"
+  analyst:
+    label: "Analyst"
+    default_manager: "Priya Nair"
+  account-manager:
+    label: "Account Manager"
+    default_manager: "Morgan Diaz"

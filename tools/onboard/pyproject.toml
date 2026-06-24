@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "onboard"
+version = "0.1.0"
+description = "Role & account-aware onboarding plan compiler (Phases 1-4; deterministic, no AI layer yet)."
+requires-python = ">=3.10"
+dependencies = [
+    "PyYAML>=6.0",
+    "click>=8.1",
+    "Markdown>=3.5",
+    "weasyprint>=61.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+# Exposes the `onboard` command after `pip install -e .`
+[project.scripts]
+onboard = "src.cli:cli"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

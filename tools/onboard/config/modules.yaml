@@ -1,0 +1,158 @@
+# Module library for Onboard.
+#
+# Selection rule (see SPEC §4): a module is selected for a hire when
+#   universal == true  OR  hire.role in applies_to  OR  hire.account in account_scope
+#
+# `adaptive` is parsed but IGNORED in Phases 1–4 (the AI layer is Phase 5).
+# It is kept here so Phase 5 drops in without a config migration.
+#
+# Structure: a small universal base (3) + two cross-role modules shared via
+# applies_to + a richer per-role set, so different roles produce visibly
+# different plans. One deliberate sequencing gap is planted (see
+# dashboard-standards) so the gap report always catches something.
+modules:
+  # ---- Universal base (everyone) -----------------------------------------
+  - id: welcome-and-mission
+    file: welcome-and-mission.md
+    universal: true
+    phase: day-1
+    order: 10
+    adaptive: true
+
+  - id: how-we-work
+    file: how-we-work.md
+    universal: true
+    phase: day-1
+    order: 15
+
+  - id: growth-and-goals
+    file: growth-and-goals.md
+    universal: true
+    phase: week-3-plus
+    order: 10
+    adaptive: true
+
+  # ---- Cross-role modules (shared by 2+ roles via applies_to) -------------
+  - id: platform-access
+    file: platform-access.md
+    applies_to: [ads-specialist, analyst]   # cross-role #1
+    phase: day-1
+    order: 20
+
+  - id: reporting-and-insights
+    file: reporting-and-insights.md
+    applies_to: [analyst, account-manager]  # cross-role #2
+    phase: week-2
+    order: 40
+
+  # ---- Ads Specialist ----------------------------------------------------
+  - id: campaign-naming-conventions
+    file: campaign-naming-conventions.md
+    applies_to: [ads-specialist]
+    phase: week-1
+    order: 20
+    depends_on: [platform-access]           # valid: dependency in earlier phase
+    adaptive: true
+
+  - id: campaign-setup-checklist
+    file: campaign-setup-checklist.md
+    applies_to: [ads-specialist]
+    phase: week-1
+    order: 30
+    depends_on: [campaign-naming-conventions]  # valid: same phase, earlier order
+
+  - id: budget-pacing-basics
+    file: budget-pacing-basics.md
+    applies_to: [ads-specialist]
+    phase: week-2
+    order: 20
+    adaptive: true
+
+  - id: creative-trafficking
+    file: creative-trafficking.md
+    applies_to: [ads-specialist]
+    phase: week-2
+    order: 30
+    depends_on: [campaign-setup-checklist]  # valid: week-1 -> week-2
+
+  - id: qa-before-launch
+    file: qa-before-launch.md
+    applies_to: [ads-specialist]
+    phase: week-2
+    order: 50
+    depends_on: [creative-trafficking]      # valid: same phase, earlier order
+
+  # ---- Analyst -----------------------------------------------------------
+  - id: sql-fundamentals
+    file: sql-fundamentals.md
+    applies_to: [analyst]
+    phase: week-1
+    order: 20
+    adaptive: true
+
+  - id: dashboard-standards
+    file: dashboard-standards.md
+    applies_to: [analyst]
+    phase: week-1
+    order: 30
+    # DELIBERATE PLANTED GAP (sequencing): this week-1 module depends on
+    # analytics-deep-dive, which lives in week-2 (a LATER phase). The gap
+    # checker flags this as a `warning` sequencing gap; the build still
+    # completes. Both modules are analyst-only, so no other role's build
+    # is affected.
+    depends_on: [analytics-deep-dive]
+
+  - id: analytics-deep-dive
+    file: analytics-deep-dive.md
+    applies_to: [analyst]
+    phase: week-2
+    order: 20
+    depends_on: [sql-fundamentals]          # valid: week-1 -> week-2
+    adaptive: true
+
+  # ---- Account Manager ---------------------------------------------------
+  - id: client-comms-norms
+    file: client-comms-norms.md
+    applies_to: [account-manager]
+    phase: day-1
+    order: 20
+
+  - id: stakeholder-mapping
+    file: stakeholder-mapping.md
+    applies_to: [account-manager]
+    phase: week-1
+    order: 20
+
+  - id: scope-and-briefs
+    file: scope-and-briefs.md
+    applies_to: [account-manager]
+    phase: week-1
+    order: 30
+    depends_on: [client-comms-norms]        # valid: day-1 -> week-1
+
+  - id: status-report-cadence
+    file: status-report-cadence.md
+    applies_to: [account-manager]
+    phase: week-2
+    order: 20
+    adaptive: true
+
+  - id: escalation-paths
+    file: escalation-paths.md
+    applies_to: [account-manager]
+    phase: week-2
+    order: 30
+    depends_on: [client-comms-norms]        # valid: day-1 -> week-2
+
+  # ---- Account-scoped (inject on top, per assigned account) --------------
+  - id: acme-brand-guidelines
+    file: accounts/acme-brand-guidelines.md
+    account_scope: [acme-retail]
+    phase: week-1
+    order: 50
+
+  - id: globex-brand-guidelines
+    file: accounts/globex-brand-guidelines.md
+    account_scope: [globex-foods]
+    phase: week-1
+    order: 50
