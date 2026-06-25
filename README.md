@@ -49,6 +49,15 @@ See [`tools/README.md`](tools/README.md). In short:
 - **[Drift](tools/drift/README.md)** — Google Sheets + Apps Script engagement-awareness tool. Design doc only; source and data are private/redacted.
 - **[Content Repurposer](tools/content-repurposer/README.md)** — the live React widget in this site; turns one post into platform-ready versions, browser → AI provider, BYOK.
 
+## License
+
+This repo is **dual-licensed** (see [`LICENSE`](LICENSE)):
+- **Tool source code** — the `tools/` directory and the Content Repurposer widget
+  (`src/pages/SpecPage.tsx`) — is under the **MIT License**. Reuse it freely with attribution.
+- **The portfolio site itself** — its design, layout, copy, branding, images, and
+  demo videos — is **© 2026 Charlie Canson, All Rights Reserved**. Please don't
+  clone the site as your own.
+
 ## Content placeholders (before deploying)
 Replace the `[placeholder]` text/links across the codebase with real content:
 
