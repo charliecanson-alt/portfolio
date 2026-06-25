@@ -9,5 +9,4 @@
 *.jpeg binary
 *.gif binary
 *.pdf binary
-# Large demo videos are stored in Git LFS (see `git lfs track`).
-*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mp4 binary
